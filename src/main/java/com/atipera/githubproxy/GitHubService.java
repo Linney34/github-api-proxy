@@ -8,7 +8,6 @@ import java.util.stream.Collectors;
 
 @Service
 class GitHubService {
-
     private final GitHubClient githubClient;
 
     GitHubService(GitHubClient githubClient) {
@@ -16,7 +15,9 @@ class GitHubService {
     }
 
     List<RepositoryResponse> getRepositories(String username) {
-        return githubClient.getUserRepositories(username).stream()
+        List<Map<String, Object>> repos = githubClient.getUserRepositories(username);
+
+        return repos.stream()
                 .filter(repo -> !(Boolean) repo.get("fork"))
                 .map(repo -> mapRepository(username, repo))
                 .collect(Collectors.toList());

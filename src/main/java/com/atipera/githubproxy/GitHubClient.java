@@ -23,7 +23,7 @@ class GitHubClient {
             );
             return response.getBody();
         } catch (HttpClientErrorException.NotFound e) {
-            throw new GithubUserNotFoundException();
+            throw new GithubUserNotFoundException("User " + username + " not found");
         }
     }
 
